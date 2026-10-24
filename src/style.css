@@ -1,0 +1,164 @@
+:root {
+  --fundo: #1b2735;
+  --painel: #243447;
+  --borda: #3a4d63;
+  --texto: #eef3f8;
+  --texto-suave: #9fb2c8;
+  --destaque: #4cc9f0;
+  --ligado: #22c55e;
+  --desligado: #64748b;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: var(--fundo);
+  color: var(--texto);
+}
+
+body { display: flex; flex-direction: column; }
+
+header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 16px;
+  background: var(--painel);
+  border-bottom: 1px solid var(--borda);
+  flex-wrap: wrap;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--destaque);
+}
+
+header .subtitulo {
+  color: var(--texto-suave);
+  font-size: 0.9rem;
+  flex: 1;
+  min-width: 200px;
+}
+
+.acoes { display: flex; gap: 8px; }
+
+button {
+  background: var(--borda);
+  color: var(--texto);
+  border: 1px solid #4a607d;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+button:hover { filter: brightness(1.1); }
+
+button.btn-primario {
+  background: var(--destaque);
+  color: #0b1a2a;
+  font-weight: 700;
+  border-color: var(--destaque);
+}
+
+main {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
+#workspace {
+  flex: 1;
+  height: 100%;
+  min-width: 0;
+}
+
+aside {
+  width: 320px;
+  flex: 0 0 320px;
+  overflow-y: auto;
+  background: var(--painel);
+  border-left: 1px solid var(--borda);
+  padding: 12px;
+}
+
+.painel {
+  background: #1d2c3f;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.painel h2 {
+  margin: 0 0 10px;
+  font-size: 1rem;
+  color: var(--destaque);
+}
+
+.painel h2 small { color: var(--texto-suave); font-weight: 400; }
+
+.painel h3 {
+  margin: 14px 0 6px;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--texto-suave);
+}
+
+#lista-sensores {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#lista-sensores li {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 2px;
+  border-bottom: 1px dashed var(--borda);
+  font-size: 0.9rem;
+}
+
+.sensor-nome { color: var(--texto-suave); }
+.sensor-valor { font-weight: 700; color: var(--texto); }
+
+#dispositivos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chip {
+  font-size: 0.8rem;
+  padding: 5px 9px;
+  border-radius: 999px;
+  border: 1px solid var(--borda);
+}
+
+.chip-ligado { background: var(--ligado); color: #06250f; font-weight: 700; }
+.chip-desligado { background: var(--desligado); color: #e8eef5; }
+
+#lista-mensagens {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.9rem;
+}
+
+#lista-mensagens li {
+  padding: 6px 10px;
+  margin: 4px 0;
+  background: #16222f;
+  border-left: 3px solid var(--destaque);
+  border-radius: 4px;
+}
+
+#lista-mensagens li.vazio { color: var(--texto-suave); border-left-color: var(--borda); }
+
+/* Ajuste visual do workspace do Blockly */
+.blocklyToolboxDiv { background: #16222f; }
