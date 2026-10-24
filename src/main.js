@@ -29,7 +29,9 @@ const workspace = Blockly.inject('workspace', {
   renderer: 'zelos',
   zoom: { controls: true, wheel: true, startScale: 1.0 },
   trashcan: true,
-  move: { scrollbars: true, drag: true, wheel: true },
+  // Não deixa "empurrar" o quadro: desativa arrastar o fundo e scroll por roda.
+  // A navegação continua pela barra de rolagem (consciente) e pelo zoom.
+  move: { scrollbars: true, drag: false, wheel: false },
 });
 
 function renderSensores() {
