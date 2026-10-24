@@ -34,6 +34,7 @@ pendrive (abrir no navegador sem servidor e sem internet).
 | Versão | Escopo | Status |
 |--------|--------|--------|
 | V1 — Condições | SE/SENÃO, comparações (`=`, `≠`, `>`, `<`, `≥`, `≤`), E/OU/NÃO, sensores + ações; **jogável** | ✅ Concluída |
+| V1.1 — Multi-projeto | Seletor de cenário: Casa inteligente, Semáforo, Fazenda, Matemática | ✅ Concluída |
 | V2 — Laços | REPITA (N vezes), ENQUANTO (condição) | ⬜ Pendente |
 | V3 — Variáveis | Criar/ler/atribuir variáveis + entrada/saída de dados | ⬜ Pendente |
 
@@ -600,3 +601,63 @@ git status --short
 ```
 
 Esperado: arquivos da V1 listados e commitado.
+
+---
+
+## V1.1 — Multi-projeto (seletor de cenários)
+
+**Objetivo:** Tornar o jogo reutilizável para vários temas, não só "casa inteligente".
+Adiciona um seletor de cenário e 4 cenários prontos.
+
+**Arquivos:** `src/scenarios.js` (novo), `src/simulator.js`, `src/blocks.js`,
+`src/generators.js`, `src/toolbox.js`, `src/main.js`, `index.html`, `src/style.css`.
+
+### Cenários
+
+| id | Cenário | Entradas | Saídas (on/off) |
+|----|---------|----------|-----------------|
+| `casa` | 🏠 Casa inteligente | temperatura, umidade, luminosidade, presença, hora | ventilador, ar-condicionado, luz, irrigação, alarme |
+| `semaforo` | 🚦 Semáforo | carro na via, botão do pedestre, hora | luz verde, amarela, vermelha |
+| `fazenda` | 🌱 Fazenda | umidade do solo, temperatura, chuva, hora | irrigação, lona, aquecedor, ventilador |
+| `matematica` | 🔢 Matemática | número A, número B | (nenhuma — usa "mostrar mensagem") |
+
+### Arquitetura
+
+- `src/scenarios.js` — fonte única dos cenários. Cada cenário tem `entradas`
+  (`{id, label, tipo, sortear()}`) e `saidas` (`{id, label, tipo:'onoff'}`).
+- `src/simulator.js` — guarda o estado do cenário atual (entradas/valores, saídas, mensagens).
+- `src/blocks.js` — blocos com dropdowns **dinâmicos** (função lê o cenário atual).
+- `src/toolbox.js` — `montarToolbox()` constrói a caixa de blocos conforme o cenário.
+- `src/main.js` — seletor `<select id="cenario">`; ao trocar: `definirCenario()`,
+  `workspace.clear()`, `workspace.updateToolbox()`, carrega demo do cenário e re-renderiza.
+
+### Troca de cenário (fluxo)
+
+```js
+function trocarCenario(id) {
+  definirCenario(id);                 // novo cenário + nova rodada
+  workspace.clear();                  // remove blocos do cenário anterior
+  workspace.updateToolbox(montarToolbox()); // atualiza a caixa de blocos
+  carregarDemo();                     // bloco-exemplo do cenário
+  renderEntradas();
+  renderResultado();
+}
+```
+
+### Como cadastrar um novo cenário
+
+Adicionar um objeto em `src/scenarios.js` no array `CENARIOS` (sem mexer em mais nada —
+seletor, blocos e painel passam a mostrar o cenário novo automaticamente).
+
+**Verificação:**
+
+```powershell
+node --check src/scenarios.js
+node --check src/simulator.js
+node --check src/blocks.js
+node --check src/generators.js
+node --check src/toolbox.js
+node --check src/main.js
+```
+
+Esperado: nenhuma saída.

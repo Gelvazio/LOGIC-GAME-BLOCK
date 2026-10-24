@@ -1,57 +1,50 @@
 import * as Blockly from 'blockly/core';
-import { SENSOR_LABELS, DEVICE_LABELS } from './simulator.js';
+import { getCenario } from './simulator.js';
 
+// Registra os blocos customizados com dropdowns ESTÁTICOS lidos do cenário
+// atual. Chamado no início e de novo a cada troca de cenário (os blocos do
+// cenário anterior já foram limpos, então re-registrar é seguro).
 export function definirBlocos() {
-  // Bloco de valor: lê um sensor da simulação.
-  Blockly.Blocks['sensor_valor'] = {
+  const entradas = getCenario().entradas.map((e) => [e.label, e.id]);
+  const saidas = getCenario()
+    .saidas.filter((s) => s.tipo === 'onoff')
+    .map((s) => [s.label, s.id]);
+
+  // Bloco de valor: lê uma entrada do cenário atual.
+  Blockly.Blocks['entrada_valor'] = {
     init: function () {
       this.appendDummyInput()
-        .appendField('sensor')
-        .appendField(
-          new Blockly.FieldDropdown(
-            Object.entries(SENSOR_LABELS).map(([v, label]) => [label, v]),
-          ),
-          'SENSOR',
-        );
+        .appendField('ler')
+        .appendField(new Blockly.FieldDropdown(entradas), 'ENTRADA');
       this.setOutput(true);
       this.setColour(230);
-      this.setTooltip('Lê o valor de um sensor da simulação.');
+      this.setTooltip('Lê o valor de uma entrada do cenário.');
     },
   };
 
-  // Ação: ligar um dispositivo.
+  // Ação: ligar uma saída (on/off).
   Blockly.Blocks['acao_ligar'] = {
     init: function () {
       this.appendDummyInput()
         .appendField('ligar')
-        .appendField(
-          new Blockly.FieldDropdown(
-            Object.entries(DEVICE_LABELS).map(([v, label]) => [label, v]),
-          ),
-          'DISPOSITIVO',
-        );
+        .appendField(new Blockly.FieldDropdown(saidas), 'SAIDA');
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
       this.setColour(120);
-      this.setTooltip('Liga um dispositivo da casa.');
+      this.setTooltip('Liga uma saída do cenário.');
     },
   };
 
-  // Ação: desligar um dispositivo.
+  // Ação: desligar uma saída (on/off).
   Blockly.Blocks['acao_desligar'] = {
     init: function () {
       this.appendDummyInput()
         .appendField('desligar')
-        .appendField(
-          new Blockly.FieldDropdown(
-            Object.entries(DEVICE_LABELS).map(([v, label]) => [label, v]),
-          ),
-          'DISPOSITIVO',
-        );
+        .appendField(new Blockly.FieldDropdown(saidas), 'SAIDA');
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
       this.setColour(120);
-      this.setTooltip('Desliga um dispositivo da casa.');
+      this.setTooltip('Desliga uma saída do cenário.');
     },
   };
 

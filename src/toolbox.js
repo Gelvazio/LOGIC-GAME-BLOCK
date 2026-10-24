@@ -1,45 +1,60 @@
-import { SENSOR_LABELS, DEVICE_LABELS } from './simulator.js';
+import { getCenario } from './simulator.js';
 
-const sensorOptions = Object.entries(SENSOR_LABELS)
-  .map(([v, label]) => ({ kind: 'block', type: 'sensor_valor', fields: { SENSOR: v } }));
+// Monta a caixa de blocos conforme o cenário atual (entradas e saídas mudam).
+export function montarToolbox() {
+  const cenario = getCenario();
+  const saidasOnOff = cenario.saidas.filter((s) => s.tipo === 'onoff');
 
-const ligarOptions = Object.entries(DEVICE_LABELS)
-  .map(([v, label]) => ({ kind: 'block', type: 'acao_ligar', fields: { DISPOSITIVO: v } }));
+  const categoriaEntradas = {
+    kind: 'category',
+    name: 'Entradas',
+    colour: '230',
+    contents: cenario.entradas.map((e) => ({
+      kind: 'block',
+      type: 'entrada_valor',
+      fields: { ENTRADA: e.id },
+    })),
+  };
 
-const desligarOptions = Object.entries(DEVICE_LABELS)
-  .map(([v, label]) => ({ kind: 'block', type: 'acao_desligar', fields: { DISPOSITIVO: v } }));
+  const acoes = [
+    ...saidasOnOff.map((s) => ({ kind: 'block', type: 'acao_ligar', fields: { SAIDA: s.id } })),
+    ...saidasOnOff.map((s) => ({ kind: 'block', type: 'acao_desligar', fields: { SAIDA: s.id } })),
+    { kind: 'block', type: 'acao_mostrar' },
+  ];
 
-export const toolbox = {
-  kind: 'categoryToolbox',
-  contents: [
-    {
-      kind: 'category', name: 'Lógica', colour: '210',
-      contents: [
-        { kind: 'block', type: 'controls_if' },
-        { kind: 'block', type: 'logic_compare' },
-        { kind: 'block', type: 'logic_operation' },
-        { kind: 'block', type: 'logic_negate' },
-        { kind: 'block', type: 'logic_boolean' },
-      ],
-    },
-    {
-      kind: 'category', name: 'Sensores', colour: '230',
-      contents: sensorOptions,
-    },
-    {
-      kind: 'category', name: 'Ações', colour: '120',
-      contents: [
-        ...ligarOptions,
-        ...desligarOptions,
-        { kind: 'block', type: 'acao_mostrar' },
-      ],
-    },
-    {
-      kind: 'category', name: 'Valores', colour: '160',
-      contents: [
-        { kind: 'block', type: 'math_number' },
-        { kind: 'block', type: 'text' },
-      ],
-    },
-  ],
-};
+  const categoriaAcoes = {
+    kind: 'category',
+    name: 'Ações',
+    colour: '120',
+    contents: acoes,
+  };
+
+  return {
+    kind: 'categoryToolbox',
+    contents: [
+      {
+        kind: 'category',
+        name: 'Lógica',
+        colour: '210',
+        contents: [
+          { kind: 'block', type: 'controls_if' },
+          { kind: 'block', type: 'logic_compare' },
+          { kind: 'block', type: 'logic_operation' },
+          { kind: 'block', type: 'logic_negate' },
+          { kind: 'block', type: 'logic_boolean' },
+        ],
+      },
+      categoriaEntradas,
+      categoriaAcoes,
+      {
+        kind: 'category',
+        name: 'Valores',
+        colour: '160',
+        contents: [
+          { kind: 'block', type: 'math_number' },
+          { kind: 'block', type: 'text' },
+        ],
+      },
+    ],
+  };
+}

@@ -37,6 +37,27 @@ header h1 {
   color: var(--destaque);
 }
 
+.seletor {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.seletor label {
+  color: var(--texto-suave);
+  font-size: 0.9rem;
+}
+
+#cenario {
+  background: var(--fundo);
+  color: var(--texto);
+  border: 1px solid var(--borda);
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
 header .subtitulo {
   color: var(--texto-suave);
   font-size: 0.9rem;
@@ -110,13 +131,13 @@ aside {
   color: var(--texto-suave);
 }
 
-#lista-sensores {
+#lista-entradas {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-#lista-sensores li {
+#lista-entradas li {
   display: flex;
   justify-content: space-between;
   padding: 6px 2px;
@@ -127,10 +148,16 @@ aside {
 .sensor-nome { color: var(--texto-suave); }
 .sensor-valor { font-weight: 700; color: var(--texto); }
 
-#dispositivos {
+#saidas {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
+}
+
+#saidas .vazio {
+  color: var(--texto-suave);
+  font-size: 0.85rem;
+  margin: 0;
 }
 
 .chip {

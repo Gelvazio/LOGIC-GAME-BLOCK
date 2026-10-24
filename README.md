@@ -2,18 +2,29 @@
 
 Jogo de blocos (estilo Scratch) feito com **Google Blockly** para alunos da 8ª série
 **simularem condições lógicas** — SE/SENÃO, comparações (`=`, `≠`, `>`, `<`, `≥`, `≤`) e
-E/OU/NÃO. Arraste os blocos, monte uma regra e clique em **Executar** para ver a "casa
-inteligente" reagir (ligar/desligar dispositivos e mostrar mensagens).
+E/OU/NÃO. Escolha um **cenário**, monte uma regra com blocos e clique em **Executar** para
+ver o resultado.
+
+## Cenários
+
+| Cenário | Entradas | Saídas |
+|---|---|---|
+| 🏠 **Casa inteligente** | temperatura, umidade, luminosidade, presença, hora | ventilador, ar-condicionado, luz, irrigação, alarme |
+| 🚦 **Semáforo** | carro na via, botão do pedestre, hora | luz verde, amarela, vermelha |
+| 🌱 **Fazenda** | umidade do solo, temperatura, chuva, hora | irrigação, lona, aquecedor, ventilador |
+| 🔢 **Matemática** | número A, número B | (usa "mostrar mensagem" para a conclusão) |
 
 ## Como usar em aula
 
-1. A casa tem **sensores** (temperatura, umidade, luminosidade, presença, hora) com valores
-   sorteados a cada rodada.
-2. O aluno monta uma regra com blocos. Exemplo de desafio:
-   > *"SE temperatura > 28 ENTÃO ligar ventilador, SENÃO desligar."*
-3. Clica em **▶ Executar** e observa no painel **Resultado** o que ligou/desligou e as
-   mensagens.
-4. **🎲 Sortear sensores** troca os valores para testar a mesma regra em cenários diferentes.
+1. Escolha o **cenário** no seletor do topo.
+2. O painel **Entradas** mostra os valores sorteados da rodada.
+3. O aluno monta uma regra com blocos. Exemplos de desafio:
+   - 🏠 *"SE temperatura > 28 ENTÃO ligar ventilador."*
+   - 🚦 *"SE tem carro na via ENTÃO ligar luz verde, SENÃO ligar luz vermelha."*
+   - 🌱 *"SE umidade do solo < 40 ENTÃO ligar irrigação."*
+   - 🔢 *"SE número A > número B ENTÃO mostrar 'A é maior', SENÃO mostrar 'A não é maior'."*
+4. Clica em **▶ Executar** e observa o painel **Resultado** (saídas + mensagens).
+5. **🎲 Sortear valores** troca os valores para testar a mesma regra em cenários diferentes.
 
 ## Como rodar (desenvolvimento)
 
@@ -36,27 +47,47 @@ O build gera **um único arquivo autocontido**: `dist/index.html`.
 - No computador dos alunos, basta **dar dois cliques** no arquivo — abre no navegador, sem
   internet e sem instalar nada.
 
-> Nota: os únicos recursos externos são 3 arquivos de mídia do Blockly (cursores de arrastar),
-> que têm fallback CSS e não afetam o uso offline.
-
 ## Estrutura
 
 ```
 index.html            — shell da aplicação
 vite.config.js        — build em arquivo único (vite-plugin-singlefile)
-src/main.js           — injeção do Blockly + execução
-src/blocks.js         — blocos customizados (sensor, ligar, desligar, mostrar)
+src/main.js           — injeção do Blockly + seletor de cenário + execução
+src/scenarios.js      — definição dos 4 cenários (entradas e saídas)
+src/simulator.js      — estado da simulação (por cenário)
+src/blocks.js         — blocos customizados (ler, ligar, desligar, mostrar)
 src/generators.js     — geradores de código JS dos blocos
-src/toolbox.js        — categorias da caixa de blocos (pt-BR)
-src/simulator.js      — sensores, atuadores e executor da simulação
+src/toolbox.js        — caixa de blocos dinâmica (pt-BR)
 src/style.css         — layout e visual
 docs/logic-game-block.md — plano e histórico das versões
 ```
+
+## Como cadastrar um novo cenário
+
+Edite `src/scenarios.js` e adicione um objeto ao array `CENARIOS`:
+
+```js
+{
+  id: 'meu_cenario',
+  nome: 'Meu cenário',
+  icone: '✨',
+  descricao: 'O que este cenário simula.',
+  entradas: [
+    { id: 'sensor', label: 'Sensor (0-100)', tipo: 'numero', sortear: () => Math.floor(Math.random() * 100) },
+  ],
+  saidas: [
+    { id: 'motor', label: 'Motor', tipo: 'onoff' },
+  ],
+}
+```
+
+Pronto — o seletor, a caixa de blocos e o painel passam a mostrar o novo cenário automaticamente.
 
 ## Versões
 
 | Versão | Conteúdo | Status |
 |--------|----------|--------|
-| V1 | Condições (SE/SENÃO, comparações, E/OU/NÃO) + sensores + ações | ✅ Jogável |
+| V1 | Condições (SE/SENÃO, comparações, E/OU/NÃO) | ✅ Jogável |
+| V1.1 | Multi-projeto: seletor com 4 cenários | ✅ Jogável |
 | V2 | Laços (REPITA, ENQUANTO) | ⬜ Pendente |
 | V3 | Variáveis (criar/ler/atribuir) + entrada/saída | ⬜ Pendente |

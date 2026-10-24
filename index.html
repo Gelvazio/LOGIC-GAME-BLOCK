@@ -8,23 +8,28 @@
 <body>
   <header>
     <h1>Logic Game Block</h1>
-    <span class="subtitulo">Monte condições lógicas e veja a casa reagir</span>
+    <div class="seletor">
+      <label for="cenario">Cenário:</label>
+      <select id="cenario"></select>
+    </div>
+    <span class="subtitulo" id="descricao-cenario"></span>
     <div class="acoes">
       <button id="btn-executar" class="btn-primario">▶ Executar</button>
       <button id="btn-limpar">Limpar blocos</button>
-      <button id="btn-sortear">🎲 Sortear sensores</button>
+      <button id="btn-sortear">🎲 Sortear valores</button>
     </div>
   </header>
   <main>
     <section id="workspace"></section>
     <aside>
-      <div class="painel" id="painel-sensores">
-        <h2>Sensores <small>(valores da rodada)</small></h2>
-        <ul id="lista-sensores"></ul>
+      <div class="painel" id="painel-entradas">
+        <h2>Entradas <small>(valores da rodada)</small></h2>
+        <ul id="lista-entradas"></ul>
       </div>
       <div class="painel" id="painel-resultado">
         <h2>Resultado</h2>
-        <div id="dispositivos"></div>
+        <h3>Saídas</h3>
+        <div id="saidas"></div>
         <h3>Mensagens</h3>
         <ul id="lista-mensagens"></ul>
       </div>

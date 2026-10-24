@@ -1,19 +1,19 @@
 import { javascriptGenerator, Order } from 'blockly/javascript';
 
 export function registrarGeradores() {
-  javascriptGenerator.forBlock['sensor_valor'] = function (block) {
-    const nome = block.getFieldValue('SENSOR');
-    return [`sensor(${JSON.stringify(nome)})`, Order.ATOMIC];
+  javascriptGenerator.forBlock['entrada_valor'] = function (block) {
+    const id = block.getFieldValue('ENTRADA');
+    return [`entrada(${JSON.stringify(id)})`, Order.ATOMIC];
   };
 
   javascriptGenerator.forBlock['acao_ligar'] = function (block) {
-    const nome = block.getFieldValue('DISPOSITIVO');
-    return `ligar(${JSON.stringify(nome)});\n`;
+    const id = block.getFieldValue('SAIDA');
+    return `ligar(${JSON.stringify(id)});\n`;
   };
 
   javascriptGenerator.forBlock['acao_desligar'] = function (block) {
-    const nome = block.getFieldValue('DISPOSITIVO');
-    return `desligar(${JSON.stringify(nome)});\n`;
+    const id = block.getFieldValue('SAIDA');
+    return `desligar(${JSON.stringify(id)});\n`;
   };
 
   javascriptGenerator.forBlock['acao_mostrar'] = function (block) {
