@@ -620,6 +620,11 @@ Adiciona um seletor de cenário e 4 cenários prontos.
 | `semaforo` | 🚦 Semáforo | carro na via, botão do pedestre, hora | luz verde, amarela, vermelha |
 | `fazenda` | 🌱 Fazenda | umidade do solo, temperatura, chuva, hora | irrigação, lona, aquecedor, ventilador |
 | `matematica` | 🔢 Matemática | número A, número B | (nenhuma — usa "mostrar mensagem") |
+| `jogo` | 🎮 Personagem de jogo | vida, energia, inimigo perto?, tem item? | atacar, defender, usar poção, pular |
+| `carro` | 🚗 Carro inteligente | chovendo?, noite?, velocidade, tanque | limpador, farol, frear, alerta |
+| `elevador` | 🛗 Elevador | andar chamado, andar atual, peso, porta obstruída? | subir, descer, abrir porta, alarme |
+| `parque` | 🎢 Parque de diversões | altura, idade, ingresso válido?, lotação | liberar, barrar, exigir acompanhante, alerta |
+| `mercado` | 🛒 Caixa de supermercado | total da compra, valor pago, cupom?, maior de idade? | liberar venda, aplicar desconto, negar, chamar gerente |
 
 ### Arquitetura
 

@@ -13,6 +13,11 @@ ver o resultado.
 | 🚦 **Semáforo** | carro na via, botão do pedestre, hora | luz verde, amarela, vermelha |
 | 🌱 **Fazenda** | umidade do solo, temperatura, chuva, hora | irrigação, lona, aquecedor, ventilador |
 | 🔢 **Matemática** | número A, número B | (usa "mostrar mensagem" para a conclusão) |
+| 🎮 **Personagem de jogo** | vida, energia, inimigo perto?, tem item? | atacar, defender, usar poção, pular |
+| 🚗 **Carro inteligente** | chovendo?, noite?, velocidade, tanque | limpador, farol, frear, alerta |
+| 🛗 **Elevador** | andar chamado, andar atual, peso, porta obstruída? | subir, descer, abrir porta, alarme |
+| 🎢 **Parque de diversões** | altura, idade, ingresso válido?, lotação | liberar, barrar, exigir acompanhante, alerta |
+| 🛒 **Caixa de supermercado** | total da compra, valor pago, cupom?, maior de idade? | liberar venda, aplicar desconto, negar, chamar gerente |
 
 ## Como usar em aula
 
@@ -23,6 +28,7 @@ ver o resultado.
    - 🚦 *"SE tem carro na via ENTÃO ligar luz verde, SENÃO ligar luz vermelha."*
    - 🌱 *"SE umidade do solo < 40 ENTÃO ligar irrigação."*
    - 🔢 *"SE número A > número B ENTÃO mostrar 'A é maior', SENÃO mostrar 'A não é maior'."*
+   - 🎢 *"SE altura ≥ 130 E ingresso válido ENTÃO liberar, SENÃO barrar."*
 4. Clica em **▶ Executar** e observa o painel **Resultado** (saídas + mensagens).
 5. **🎲 Sortear valores** troca os valores para testar a mesma regra em cenários diferentes.
 

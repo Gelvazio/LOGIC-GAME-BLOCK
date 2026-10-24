@@ -160,6 +160,69 @@ function demoXml(id) {
     </statement>
   </block>
 </xml>`;
+    case 'jogo':
+      return `<xml xmlns="https://developers.google.com/blockly/xml">
+  <block type="controls_if">
+    <value name="IF0">
+      <block type="logic_compare">
+        <field name="OP">LT</field>
+        <value name="A"><block type="entrada_valor"><field name="ENTRADA">vida</field></block></value>
+        <value name="B"><shadow type="math_number"><field name="NUM">20</field></shadow></value>
+      </block>
+    </value>
+    <statement name="DO0"><block type="acao_ligar"><field name="SAIDA">usar_pocao</field></block></statement>
+  </block>
+</xml>`;
+    case 'carro':
+      return `<xml xmlns="https://developers.google.com/blockly/xml">
+  <block type="controls_if">
+    <value name="IF0"><block type="entrada_valor"><field name="ENTRADA">chovendo</field></block></value>
+    <statement name="DO0"><block type="acao_ligar"><field name="SAIDA">limpador</field></block></statement>
+  </block>
+</xml>`;
+    case 'elevador':
+      return `<xml xmlns="https://developers.google.com/blockly/xml">
+  <block type="controls_if">
+    <value name="IF0">
+      <block type="logic_compare">
+        <field name="OP">GT</field>
+        <value name="A"><block type="entrada_valor"><field name="ENTRADA">peso</field></block></value>
+        <value name="B"><shadow type="math_number"><field name="NUM">500</field></shadow></value>
+      </block>
+    </value>
+    <statement name="DO0"><block type="acao_ligar"><field name="SAIDA">alarme</field></block></statement>
+  </block>
+</xml>`;
+    case 'parque':
+      return `<xml xmlns="https://developers.google.com/blockly/xml">
+  <block type="controls_if">
+    <mutation else="1"></mutation>
+    <value name="IF0">
+      <block type="logic_compare">
+        <field name="OP">GTE</field>
+        <value name="A"><block type="entrada_valor"><field name="ENTRADA">altura</field></block></value>
+        <value name="B"><shadow type="math_number"><field name="NUM">130</field></shadow></value>
+      </block>
+    </value>
+    <statement name="DO0"><block type="acao_ligar"><field name="SAIDA">liberar</field></block></statement>
+    <statement name="ELSE"><block type="acao_ligar"><field name="SAIDA">barrar</field></block></statement>
+  </block>
+</xml>`;
+    case 'mercado':
+      return `<xml xmlns="https://developers.google.com/blockly/xml">
+  <block type="controls_if">
+    <mutation else="1"></mutation>
+    <value name="IF0">
+      <block type="logic_compare">
+        <field name="OP">GTE</field>
+        <value name="A"><block type="entrada_valor"><field name="ENTRADA">valor_pago</field></block></value>
+        <value name="B"><block type="entrada_valor"><field name="ENTRADA">total_compra</field></block></value>
+      </block>
+    </value>
+    <statement name="DO0"><block type="acao_ligar"><field name="SAIDA">liberar_venda</field></block></statement>
+    <statement name="ELSE"><block type="acao_ligar"><field name="SAIDA">negar</field></block></statement>
+  </block>
+</xml>`;
     default:
       return '';
   }
